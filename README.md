@@ -6,6 +6,8 @@ However, **this collection of Snippets focuses on covering other aspects of a de
  - APEX Snippets to include structured comments in methods and classes
  - AURA Snippets including all the elements you need to create incredible auradoc files
 
+![apexdoc Snippets GIF](./img/apexdoc.gif)
+
 ### APEX
 ![apexdoc Snippets](./img/apex_examples.png)
 

@@ -18,7 +18,7 @@
 		"prefix" : "!!apexdoc @param for method comment",
         "scope" : "apex",
 		"body" : [
-	        "* @Param\t\t\t: ${1:String} ${2:param} : ${3:Explanation}"
+	        "* @Param\t\t\t:\t${1:String} ${2:param} : ${3:Explanation}"
 		]
     },
 

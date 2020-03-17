@@ -22,7 +22,7 @@
 		]
     },
 
-    "Comment for Class Comment Documentation" : {
+    "Comment for Class Documentation" : {
         "prefix": "!!apexdoc class",
         "scope" : "apex",
         "body" : [

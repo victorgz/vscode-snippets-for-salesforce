@@ -1,13 +1,13 @@
 {
     /* 
     * @Author: Victor Garcia Zarco - victor.garciazarco@salesforce.com
-    * @Description: VSCode snippets for Salesforce developers. The format is adapted to the C1ST project
+    * @Description: VSCode snippets for Salesforce developers
     */
 
     /** AURADOC SNIPPETS */
 
 	"Basic Structure" : {
-        "prefix" : "!PSA auradoc: Basic Structure",
+        "prefix" : "!!auradoc: Basic Structure",
         "scope" : "html",
 		"body" : [
 			"<aura:documentation>",
@@ -23,27 +23,27 @@
 		]
 	},
 	"Text - Title" : {
-		"prefix" : "!PSA auradoc: Text - Title",
+		"prefix" : "!!auradoc: Text - Title",
         "scope" : "html",
 		"body" : "<h4>Title</h4>"
 	},
 	"Text - Paragraph" : {
-		"prefix" : "!PSA auradoc: Text - Paragraph",
+		"prefix" : "!!auradoc: Text - Paragraph",
         "scope" : "html",
 		"body" : "<p>Paragraph</p>"
 	},
 	"Text - Inline code" : {
-		"prefix" : "!PSA auradoc: Text - Inline code",
+		"prefix" : "!!auradoc: Text - Inline code",
         "scope" : "html",
 		"body" : "<code>code</code>"
 	},
 	"Text - Link" : {
-		"prefix" : "!PSA auradoc: Text - Link",
+		"prefix" : "!!auradoc: Text - Link",
         "scope" : "html",
 		"body" : "<a href=\"#\" target=\"_blank\">text</a>"
 	},
 	"Code block" : {
-		"prefix" : "!PSA auradoc: Code Block",
+		"prefix" : "!!auradoc: Code Block",
         "scope" : "html",
 		"body" : [
 			"$BLOCK_COMMENT_START Code markup must be escaped. For example, replace < characters with &lt; $BLOCK_COMMENT_END",
@@ -54,7 +54,7 @@
 		]
 	},
 	"List - Bulleted" : {
-		"prefix" : "!PSA auradoc: List - Bulleted",
+		"prefix" : "!!auradoc: List - Bulleted",
         "scope" : "html",
 		"body" : [
 			"<ul>",
@@ -64,7 +64,7 @@
 		]
 	},
 	"List - Numbered" : {
-		"prefix" : "!PSA auradoc: List - Numbered",
+		"prefix" : "!!auradoc: List - Numbered",
         "scope" : "html",
 		"body" : [
 			"<ol>",
@@ -74,7 +74,7 @@
 		]
 	},
 	"Table" : {
-		"prefix" : "!PSA auradoc: Table",
+		"prefix" : "!!auradoc: Table",
         "scope" : "html",
 		"body" : [
 			"<table>",
@@ -94,7 +94,7 @@
 		]
 	},
 	"aura:example" : {
-        "prefix" : "!PSA auradoc: aura:example",
+        "prefix" : "!!auradoc: aura:example",
         "scope" : "html",
 		"body" : [
 			"<aura:example name=\"basicExample\" ref=\"c:basicExample\" label=\"Basic Example\">",
@@ -107,7 +107,7 @@
     /** APEX SNIPPETS */
     
     "Comment for Method Documentation" : {
-        "prefix" : "!PSA apexdoc method",
+        "prefix" : "!!apexdoc method",
         "scope" : "apex",
 		"body" : [
 			"/******************************************************************************************************",
@@ -122,7 +122,7 @@
     },
 
     "New Param for Method Comment Documentation" : {
-		"prefix" : "!PSA apexdoc @param for method comment",
+		"prefix" : "!!apexdoc @param for method comment",
         "scope" : "apex",
 		"body" : [
 	        "* @Param\t\t\t: ${1:String} ${2:param} : ${3:Explanation}"
@@ -130,7 +130,7 @@
     },
 
     "Comment for Class Comment Documentation" : {
-        "prefix": "!PSA apexdoc class",
+        "prefix": "!!apexdoc class",
         "scope" : "apex",
         "body" : [
             "/*-----------------------------------------------------------------------------------------------------------//",
@@ -150,7 +150,7 @@
     },
 
     "New Version for Class Comment Documentation" : {
-        "prefix": "!PSA apexdoc @version for class comment",
+        "prefix": "!!apexdoc @version for class comment",
         "scope" : "apex",
         "body" : [
             "@version\t\t${4:1.0}\t\t$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE\t\t${5:Author}\t\t\t\t\t${6:Changes description}",

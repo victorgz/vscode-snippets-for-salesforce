@@ -1,0 +1,25 @@
+{
+    "name": "snippets-for-salesforce-devs",
+    "displayName": "Snippets for Salesforce Developers",
+    "description": "A set of VSCode Snipptes for Salesforce Developers",
+    "publisher": "victorgz",
+    "version": "1.0.0",
+    "engines": {
+        "vscode": "^1.43.0"
+    },
+    "categories": [
+        "Snippets"
+    ],
+    "contributes": {
+        "snippets": [
+            {
+                "language": "html",
+                "path": "./snippets/aura.json"
+            },
+            {
+                "language": "apex",
+                "path": "./snippets/apex.json"
+            }
+        ]
+    }
+}

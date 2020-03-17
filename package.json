@@ -5,6 +5,7 @@
     "publisher": "victorgz",
     "version": "1.0.0",
     "license": "SEE LICENSE IN LICENSE",
+    "icon": "./img/icon.png",
     "author": {
         "name": "victorgz"
     },

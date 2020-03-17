@@ -46,8 +46,7 @@
         "prefix": "!!apexdoc @version for class comment",
         "scope" : "apex",
         "body" : [
-            "@version\t\t${4:1.0}\t\t$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE\t\t${5:Author}\t\t\t\t\t${6:Changes description}",
-            "* "
+            "* @version\t\t${4:1.0}\t\t$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE\t\t${5:Author}\t\t\t\t\t${6:Changes description}"
         ]
     }
 }

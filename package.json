@@ -4,11 +4,27 @@
     "description": "A set of VSCode Snipptes for Salesforce Developers",
     "publisher": "victorgz",
     "version": "1.0.0",
+    "license": "SEE LICENSE IN LICENSE",
+    "author": {
+        "name": "victorgz"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/victorgz/vscode-snippets-for-salesforce.git"
+    },
+    "homepage": "https://github.com/victorgz/vscode-snippets-for-salesforce/blob/master/README.md",
     "engines": {
         "vscode": "^1.43.0"
     },
     "categories": [
         "Snippets"
+    ],
+    "keywords": [
+        "snippets",
+        "salesforce",
+        "aura",
+        "apex",
+        "documentation"
     ],
     "contributes": {
         "snippets": [

@@ -33,6 +33,7 @@ Alternatively, you can download this repository, package the extension and insta
 ## List of available snippets
 ### APEX
 Pre-built comments to document your Apex classes and methods.
+
 |Trigger| Description |
 |--|--|
 |`!!apexdoc method`|Add a comment block for your Apex method
@@ -45,6 +46,7 @@ Pre-built comments to document your Apex classes and methods.
 
 ### AURA
 All the available auradoc items that you need to document your Aura Components.
+
 |Trigger | Description |
 |--|--|
 |`!!auradoc: Basic Structure`|Create the basic structure for the auradoc file

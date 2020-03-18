@@ -15,25 +15,25 @@
             "\n</aura:documentation>"
         ]
     },
-    "Text - Title": {
-        "prefix": "!!auradoc: Text - Title",
+    "Title": {
+        "prefix": "!!auradoc: Title",
         "scope": "html",
-        "body": "<h4>Title</h4>"
+        "body": "<h4>${1:Title}</h4>"
     },
-    "Text - Paragraph": {
-        "prefix": "!!auradoc: Text - Paragraph",
+    "Paragraph": {
+        "prefix": "!!auradoc: Paragraph",
         "scope": "html",
-        "body": "<p>Paragraph</p>"
+        "body": "<p>${1:Paragraph}</p>"
     },
-    "Text - Inline code": {
-        "prefix": "!!auradoc: Text - Inline code",
+    "Inline code": {
+        "prefix": "!!auradoc: Inline Code",
         "scope": "html",
-        "body": "<code>code</code>"
+        "body": "<code>${1:code}</code>"
     },
-    "Text - Link": {
-        "prefix": "!!auradoc: Text - Link",
+    "Link": {
+        "prefix": "!!auradoc: Link",
         "scope": "html",
-        "body": "<a href=\"#\" target=\"_blank\">text</a>"
+        "body": "<a href=\"${2:#}\" target=\"_blank\">${1:text}</a>"
     },
     "Code block": {
         "prefix": "!!auradoc: Code Block",
@@ -41,28 +41,27 @@
         "body": [
             "$BLOCK_COMMENT_START Code markup must be escaped. For example, replace < characters with &lt; $BLOCK_COMMENT_END",
             "<pre><code class=\"language-markup\">",
-            "\t&lt;aura:component>",
-            "\t&lt;/aura:component>",
+            "$0",
             "</code></pre>"
         ]
     },
     "List - Bulleted": {
-        "prefix": "!!auradoc: List - Bulleted",
+        "prefix": "!!auradoc: Bulleted List",
         "scope": "html",
         "body": [
             "<ul>",
-            "\t<li>Item1</li>",
-            "\t<li>Item2</li>",
+            "\t<li>${1:Item1}</li>",
+            "\t<li>${2:Item2}</li>",
             "</ul>"
         ]
     },
     "List - Numbered": {
-        "prefix": "!!auradoc: List - Numbered",
+        "prefix": "!!auradoc: Numbered List",
         "scope": "html",
         "body": [
             "<ol>",
-            "\t<li>Item1</li>",
-            "\t<li>Item2</li>",
+            "\t<li>${1:Item1}</li>",
+            "\t<li>${2:Item2}</li>",
             "</ol>"
         ]
     },
@@ -72,16 +71,16 @@
         "body": [
             "<table>",
             "\t<tr>",
-            "\t\t<th>Column1</th>",
-            "\t\t<th>Column2</th>",
+            "\t\t<th>${1:Column1}</th>",
+            "\t\t<th>${2:Column2}</th>",
             "\t</tr>",
             "\t<tr>",
-            "\t\t<td>row1column1</td>",
-            "\t\t<td>row1column2</td>",
+            "\t\t<td>${3:row1column1}</td>",
+            "\t\t<td>${4:row1column2}</td>",
             "\t</tr>",
             "\t<tr>",
-            "\t\t<td>row2column1</td>",
-            "\t\t<td>row2column2</td>",
+            "\t\t<td>${5:row2column1}</td>",
+            "\t\t<td>${6:row2column2}</td>",
             "\t</tr>",
             "</table>"
         ]
@@ -90,7 +89,7 @@
         "prefix": "!!auradoc: aura:example",
         "scope": "html",
         "body": [
-            "<aura:example name=\"basicExample\" ref=\"c:basicExample\" label=\"Basic Example\">",
+            "<aura:example name=\"${1:basicExample}\" ref=\"${2:c:basicExample}\" label=\"${3:Basic Example}\">",
             "\t$BLOCK_COMMENT_START Explanation of your example $BLOCK_COMMENT_END",
             "\t$0",
             "</aura:example>"

@@ -3,7 +3,7 @@
     "displayName": "Snippets for Salesforce Developers",
     "description": "A set of VSCode Snipptes for Salesforce Developers",
     "publisher": "victorgz",
-    "version": "1.0.3",
+    "version": "1.1.0",
     "license": "SEE LICENSE IN LICENSE",
     "icon": "img/icon.png",
     "author": {
@@ -39,15 +39,15 @@
             }
         ],
         "commands": [
-			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
-			}
-		],
+            {
+                "command": "extension.helloWorld",
+                "title": "Hello World"
+            }
+        ],
         "configuration": {
-            "title" : "Snippets for Salesforce Developers",
-            "properties" : {
-                "sfSnippets.authorName" : {
+            "title": "Snippets for Salesforce Developers",
+            "properties": {
+                "sfSnippets.authorName": {
                     "type": "string",
                     "description": "Author name to be used in the documentation",
                     "default": "User123"
@@ -56,34 +56,36 @@
                     "type": "boolean",
                     "default": true,
                     "description": "A boolean value here"
-                  },
-                  "test1.attr2": {
+                },
+                "test1.attr2": {
                     "type": "string",
                     "default": "victorGZ",
                     "description": "Author name !!"
-                  }
+                }
             }
         }
     },
     "activationEvents": [
-		"onLanguage:javascript"
-	],
-	"main": "./src/extension.js",
-
-	"scripts": {
-		"lint": "eslint .",
-		"pretest": "npm run lint",
-		"test": "node ./test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/glob": "^7.1.1",
-		"@types/mocha": "^7.0.1",
-		"@types/node": "^12.11.7",
-		"@types/vscode": "^1.43.0",
-		"eslint": "^6.8.0",
-		"glob": "^7.1.6",
-		"mocha": "^7.0.1",
-		"typescript": "^3.7.5",
-		"vscode-test": "^1.3.0"
-	}
+        "onLanguage:apex"
+    ],
+    "main": "./src/extension.js",
+    "scripts": {
+        "lint": "eslint .",
+        "pretest": "npm run lint",
+        "test": "node ./test/runTest.js"
+    },
+    "devDependencies": {
+        "@types/glob": "^7.1.1",
+        "@types/mocha": "^7.0.1",
+        "@types/node": "^12.11.7",
+        "@types/vscode": "^1.43.0",
+        "eslint": "^6.8.0",
+        "glob": "^7.1.6",
+        "mocha": "^7.0.1",
+        "typescript": "^3.7.5",
+        "vscode-test": "^1.3.0"
+    },
+    "dependencies": {
+        "simple-git": "^1.132.0"
+    }
 }

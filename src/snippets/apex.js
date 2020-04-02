@@ -16,8 +16,8 @@ class ApexSnippetService {
 
     buildFormattedSnippets() {
         return {
-            "Comment for Method Documentation": {
-                "prefix": "!! apexdoc method",
+            docMethodComment: {
+                "prefix": "apexdoc method",
                 "scope": "apex",
                 "body": [
                     "/******************************************************************************************************",
@@ -31,16 +31,16 @@ class ApexSnippetService {
                 ]
             },
 
-            "New Param for Method Comment Documentation": {
-                "prefix": "!! apexdoc @param for method comment",
+            docMethodItemParam: {
+                "prefix": "apexdoc @param for method comment",
                 "scope": "apex",
                 "body": [
                     "* @Param\t\t\t:\t${1:String} ${2:param} : ${3:Explanation}"
                 ]
             },
 
-            "Comment for Class Documentation": {
-                "prefix": "!! apexdoc class",
+            docClassComment: {
+                "prefix": "apexdoc class",
                 "scope": "apex",
                 "body": [
                     "/*-----------------------------------------------------------------------------------------------------------//",
@@ -59,8 +59,8 @@ class ApexSnippetService {
                 ]
             },
 
-            version: {
-                "prefix": "!! apexdoc version for class comment",
+            docClassItemVersion: {
+                "prefix": "apexdoc version for class comment",
                 "scope": "apex",
                 "description": "inserting new @versio here",
                 "body": [
@@ -75,6 +75,7 @@ class ApexSnippetService {
 
         Object.values(this.formattedSnippets).forEach(snippetDef => {
             const completionItem = new this.vscodeModule.CompletionItem(snippetDef.prefix);
+            completionItem.filterText = snippetDef.prefix;
             completionItem.insertText = new this.vscodeModule.SnippetString(snippetDef.body.join('\n'));
             completionItem.documentation = new this.vscodeModule.MarkdownString(snippetDef.description);
 

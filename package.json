@@ -32,10 +32,6 @@
             {
                 "language": "html",
                 "path": "./snippets/aura.json"
-            },
-            {
-                "language": "apex",
-                "path": "./snippets/apex.json"
             }
         ],
         "commands": [

@@ -43,21 +43,29 @@
         "configuration": {
             "title": "Snippets for Salesforce Developers",
             "properties": {
-                "sfSnippets.authorName": {
+                "snippetsForSalesforceDevs.authorName": {
                     "type": "string",
-                    "description": "Author name to be used in the documentation",
-                    "default": "User123"
+                    "description": "The name of the author to sign the comments",
+                    "default": "John Snippet"
                 },
-                "test1.attr1": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "A boolean value here"
-                },
-                "test1.attr2": {
+                "snippetsForSalesforceDevs.authorEmail": {
                     "type": "string",
-                    "default": "victorGZ",
-                    "description": "Author name !!"
-                }
+                    "description": "The email of the author to sign the comments",
+                    "default": "john@snippet.demo"
+                },
+                "snippetsForSalesforceDevs.apex.lenghtOfClassCommentSeparator": {
+                    "type": "string",
+                    "default": "long",
+                    "enum": ["long", "short"],
+                    "description": "Determines if the comment for a class will have long or short separators at the top and at the bottom"
+                },
+                "snippetsForSalesforceDevs.apex.lenghtOfMethodCommentSeparator": {
+                    "type": "string",
+                    "default": "long",
+                    "enum": ["long", "short"],
+                    "description": "Determines if the comment for a method will have long or short separators at the top and at the bottom"
+                },
+
             }
         }
     },

@@ -18,12 +18,18 @@ function activate(context) {
 	
 	// Get git configuration
 	const gitConfig = {
-		username: 'no-name',
-		useremail: 'no-email'
+		username: undefined,
+		useremail: undefined
 	};
 
 	// Get extension configuration
-	
+	const extensionConfiguration = vscode.workspace.getConfiguration('snippetsForSalesforceDevs');
+	const apexConfiguration = {
+		authorname : extensionConfiguration.authorName,
+		authoremail : extensionConfiguration.authorEmail,
+		classSeparatorLength : extensionConfiguration.apex.lenghtOfClassCommentSeparator,
+		methodSeparatorLength : extensionConfiguration.apex.lenghtOfMethodCommentSeparator
+	}
 
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with  registerCommand
@@ -38,7 +44,7 @@ function activate(context) {
 	context.subscriptions.push(disposable);
 
 	// Create Snippet Service
-	const apexService = new ApexSnippetService(null, vscode, gitConfig);
+	const apexService = new ApexSnippetService(apexConfiguration, vscode, gitConfig);
 
 	const completionItemProvider = vscode.languages.registerCompletionItemProvider('apex', {
 		provideCompletionItems(document, position) {

@@ -1,0 +1,13 @@
+{
+	"name": "snippets-extension",
+	"displayName": "snippets-extension",
+	"description": "snippets extension with settings and more",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.43.0"
+	},
+	"categories": [
+		"Other"
+	]
+	
+}

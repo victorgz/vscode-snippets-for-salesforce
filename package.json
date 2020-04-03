@@ -69,8 +69,7 @@
                     "default": "long",
                     "enum": ["long", "short"],
                     "description": "Determines if the comment for a method will have long or short separators at the top and at the bottom"
-                },
-
+                }
             }
         }
     },

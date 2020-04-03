@@ -1,37 +1,54 @@
 class ApexSnippetService {
 
-    constructor(apexSettings, vscodeModule, gitConfig, globalPrefix) {
-        this.apexSettings = apexSettings;
+    constructor(vscodeModule, extensionConfiguration) {
         this.vscodeModule = vscodeModule;
-        this.gitConfig = gitConfig;
-        this.globalPrefix = globalPrefix;
-
-        this.replacementItems = {
-            authorName: this.gitConfig.username || this.apexSettings.authorname || '${1:Your name}',
-            authorEmail: this.gitConfig.useremail || this.apexSettings.authoremail || '${2:email@email.com}',
-            topClassSeparator: this.apexSettings.classSeparatorLength === 'long' ? "/*-----------------------------------------------------------------------------------------------------------//" : "/**",
-            bottomClassSeparator: this.apexSettings.classSeparatorLength === 'long' ? "*-----------------------------------------------------------------------------------------------------------*/" : "**/",
-            topMethodSeparator: this.apexSettings.methodSeparatorLength === 'long' ? "/******************************************************************************************************" : "/**",
-            bottomMethodSeparator: this.apexSettings.methodSeparatorLength === 'long' ? "******************************************************************************************************/" : "**/"
-        }
-
-        this.formattedSnippets = this.buildFormattedSnippets();
+        this.gitConfiguration = {
+            name: undefined,
+            email: undefined
+        };
+        this.extensionConfiguration = extensionConfiguration || {};
+        this.globalPrefix = extensionConfiguration.prefix || '!!';
+        this.replacementItems = {};
+        this.formattedSnippets = {};
     }
 
+    addGitConfiguration(gitUsername, gitEmail) {
+        this.gitConfiguration = {
+            name: gitUsername,
+            email: gitEmail
+        }
+    }
+
+    initialize(){
+        this.globalPrefix = this.extensionConfiguration.prefix || '!! ';
+        this.createReplacementItems();
+        this.buildFormattedSnippets();
+    }
+
+    createReplacementItems() {
+        this.replacementItems = {
+            authorName: this.gitConfiguration.name || this.extensionConfiguration.apex.authorname || '${1:Your name}',
+            authorEmail: this.gitConfiguration.email || this.extensionConfiguration.apex.authoremail || '${2:email@email.com}',
+            topClassSeparator: this.extensionConfiguration.apex.classSeparatorLength === 'long' ? "/*-----------------------------------------------------------------------------------------------------------//" : "/**",
+            bottomClassSeparator: this.extensionConfiguration.apex.classSeparatorLength === 'long' ? "*-----------------------------------------------------------------------------------------------------------*/" : "*/",
+            topMethodSeparator: this.extensionConfiguration.apex.methodSeparatorLength === 'long' ? "/******************************************************************************************************" : "/**",
+            bottomMethodSeparator: this.extensionConfiguration.apex.methodSeparatorLength === 'long' ? "******************************************************************************************************/" : " */"
+        }
+    }
 
     buildFormattedSnippets() {
-        return {
+        this.formattedSnippets = {
             docMethodComment: {
                 "prefix": "apexdoc method",
                 "scope": "apex",
                 "body": [
                     this.replacementItems.topMethodSeparator,
-                    "* @Method\t\t\t:\t${1:nameOfYourMethod}",
-                    "* @Author\t\t\t:\t" + this.replacementItems.authorName + " <" + this.replacementItems.authorEmail + ">",
-                    "* @Created\t\t\t:\t$CURRENT_DATE / $CURRENT_MONTH / $CURRENT_YEAR",
-                    "* @Description\t\t:\t${4:Description of your method}",
-                    "* @Param\t\t\t:\t${5:String} ${6:param1} : ${7:Explanation of param1}",
-                    "* @Returns\t\t\t:\t${8:Explanation of the return value}",
+                    " * @Method\t\t\t:\t${1:nameOfYourMethod}",
+                    " * @Author\t\t\t:\t" + this.replacementItems.authorName.trim() + " <" + this.replacementItems.authorEmail.trim() + ">",
+                    " * @Created\t\t\t:\t$CURRENT_DATE / $CURRENT_MONTH / $CURRENT_YEAR",
+                    " * @Description\t\t:\t${4:Description of your method}",
+                    " * @Param\t\t\t:\t${5:String} ${6:param1} : ${7:Explanation of param1}",
+                    " * @Returns\t\t\t:\t${8:Explanation of the return value}",
                     this.replacementItems.bottomMethodSeparator
                 ]
             },
@@ -50,7 +67,7 @@ class ApexSnippetService {
                 "body": [
                     this.replacementItems.topClassSeparator,
                     "* Class Name\t: $TM_FILENAME_BASE",
-                    "* Author\t\t: " + this.replacementItems.authorName + " <" + this.replacementItems.authorEmail + ">",
+                    "* Author\t\t: " + this.replacementItems.authorName.trim() + " <" + this.replacementItems.authorEmail.trim() + ">",
                     "* Date\t\t\t: $CURRENT_DATE / $CURRENT_MONTH / $CURRENT_YEAR",
                     "* Description\t: ${3:Description of the class}",
                     "*",
@@ -58,7 +75,7 @@ class ApexSnippetService {
                     "* -----------------------------------------------------------------------------------------------------------",
                     "* \t\t\t\tNo.\t\tDate\t\t\tAuthor\t\t\t\t\tDescription",
                     "* \t\t\t\t----\t------------\t--------------------\t---------------------------------------------",
-                    "* @version\t\t${4:1.0}\t\t$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE\t\t" + this.replacementItems.authorName + "\t\t\t\t\t${6:Created}",
+                    "* @version\t\t${4:1.0}\t\t$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE\t\t" + this.getTabSpacing(20, this.replacementItems.authorName) + " \t${6:Created}",
                     "* ",
                     this.replacementItems.bottomClassSeparator
                 ]
@@ -89,6 +106,23 @@ class ApexSnippetService {
         });
 
         return result;
+    }
+
+    getGlobalPrefix(){
+        return this.globalPrefix;
+    }
+
+    getTabSpacing(totalSpace, text){
+        if(text.lenght >= totalSpace){
+            return text.substring(0, totalSpace);
+        }
+
+        const numberOfTabs = (totalSpace - text.length) / 4;
+        let tabString = '';
+        for(let i = 0; i < Math.ceil(numberOfTabs); i++){
+            tabString += '\t';
+        }
+        return text.trim() + tabString;
     }
 
 };

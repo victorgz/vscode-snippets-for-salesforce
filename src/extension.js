@@ -13,54 +13,29 @@ const git = require('simple-git')
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-
-	console.log('The new extension is now active!!');
-
-	// Get git configuration
-	const gitConfig = {
-		username: undefined,
-		useremail: undefined
-	};
-
-	// Get extension configuration
-	const extensionConfiguration = vscode.workspace.getConfiguration('snippetsForSalesforceDevs');
-	const apexConfiguration = {
-		authorname: extensionConfiguration.authorName,
-		authoremail: extensionConfiguration.authorEmail,
-		classSeparatorLength: extensionConfiguration.apex.lenghtOfClassCommentSeparator,
-		methodSeparatorLength: extensionConfiguration.apex.lenghtOfMethodCommentSeparator
-	}
-	const prefix = extensionConfiguration.prefix || '!! ';
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with  registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('extension.helloWorld', function () {
-		// The code you place here will be executed every time your command is executed
-
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World!');
+	const projectPath = vscode.workspace.rootPath || '/Users/victor.garciazarco/DevWorkspace/vscode-snippets-for-salesforce';
+	const extensionConfiguration = getExtensionConfiguration();
+	const apexSnippetService = new ApexSnippetService(vscode, extensionConfiguration);
+	
+	Promise.all([getGitUserName(projectPath), getGitUserEmail(projectPath)]).then(function (values) {
+		apexSnippetService.addGitConfiguration(values[0], values[1]);
+		apexSnippetService.initialize();
 	});
 
-	context.subscriptions.push(disposable);
-
-	// Create Snippet Service
-	const apexService = new ApexSnippetService(apexConfiguration, vscode, gitConfig, prefix);
-
-	// Search & replacement regex
+	// Create replacement REGEX - To be moved into the Common configuration class
+	const prefix = apexSnippetService.getGlobalPrefix();
 	const regexString = prefix[0] + '\\s*[\\w\\s]*';
 	const regex = new RegExp(regexString);
 
 	const completionItemProvider = vscode.languages.registerCompletionItemProvider('apex', {
 		provideCompletionItems(document, position) {
-
 			if (!document.lineAt(position.line).text.match(regex)) {
 				return;
 			}
 
 			const range = new vscode.Range(position.line, document.lineAt(position.line).text.match(regex).index, position.line, position.character)
 
-			return apexService.getCompletionItems(range);
+			return apexSnippetService.getCompletionItems(range);
 		}
 	}, prefix[0]
 	);
@@ -72,25 +47,31 @@ exports.activate = activate;
 // this method is called when your extension is deactivated
 function deactivate() { }
 
-function getGitConfiguration() {
-	const gitConfig = {};
-
-	//const projectPath = vscode.workspace;
-	const projectPath = '/Users/victor.garciazarco/DevWorkspace/vscode-snippets-for-salesforce';
-	git(projectPath).raw(['config', 'user.name'], (err, result) => {
-		if (!err) {
-			gitConfig.username = result;
-		}
-	});
-
-	git(projectPath).raw(['config', 'user.email'], (err, result) => {
-		if (!err) {
-			gitConfig.email = result;
-		}
-	});
-
-	return gitConfig;
+/*********** */
+function getGitUserName(projectPath) {
+	return new Promise((resolve, reject) => {
+		git(projectPath).raw(['config', 'user.name'], (err, result) => {
+			if (err) return reject(err)
+			resolve(result)
+		});
+	})
 }
+
+function getGitUserEmail(projectPath) {
+	return new Promise((resolve, reject) => {
+		git(projectPath).raw(['config', 'user.email'], (err, result) => {
+			if (err) return reject(err)
+			resolve(result)
+		});
+	})
+}
+
+function getExtensionConfiguration() {
+	return vscode.workspace.getConfiguration('snippetsForSalesforceDevs');
+}
+
+/*********** */
+
 
 module.exports = {
 	activate,

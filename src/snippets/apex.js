@@ -1,17 +1,18 @@
 class ApexSnippetService {
 
-    constructor(apexSettings, vscodeModule, gitConfig) {
+    constructor(apexSettings, vscodeModule, gitConfig, globalPrefix) {
         this.apexSettings = apexSettings;
         this.vscodeModule = vscodeModule;
         this.gitConfig = gitConfig;
+        this.globalPrefix = globalPrefix;
 
         this.replacementItems = {
             authorName: this.gitConfig.username || this.apexSettings.authorname || '${1:Your name}',
             authorEmail: this.gitConfig.useremail || this.apexSettings.authoremail || '${2:email@email.com}',
-            topClassSeparator : this.apexSettings.classSeparatorLength === 'long' ? "/*-----------------------------------------------------------------------------------------------------------//" : "/**",
-            bottomClassSeparator : this.apexSettings.classSeparatorLength === 'long' ? "*-----------------------------------------------------------------------------------------------------------*/" : "**/",
-            topMethodSeparator : this.apexSettings.methodSeparatorLength === 'long' ? "/******************************************************************************************************" : "/**",
-            bottomMethodSeparator : this.apexSettings.methodSeparatorLength === 'long' ? "******************************************************************************************************/" : "**/"
+            topClassSeparator: this.apexSettings.classSeparatorLength === 'long' ? "/*-----------------------------------------------------------------------------------------------------------//" : "/**",
+            bottomClassSeparator: this.apexSettings.classSeparatorLength === 'long' ? "*-----------------------------------------------------------------------------------------------------------*/" : "**/",
+            topMethodSeparator: this.apexSettings.methodSeparatorLength === 'long' ? "/******************************************************************************************************" : "/**",
+            bottomMethodSeparator: this.apexSettings.methodSeparatorLength === 'long' ? "******************************************************************************************************/" : "**/"
         }
 
         this.formattedSnippets = this.buildFormattedSnippets();
@@ -74,14 +75,15 @@ class ApexSnippetService {
         };
     }
 
-    getCompletionItems() {
+    getCompletionItems(range) {
         let result = [];
 
         Object.values(this.formattedSnippets).forEach(snippetDef => {
-            const completionItem = new this.vscodeModule.CompletionItem(snippetDef.prefix);
-            completionItem.filterText = snippetDef.prefix;
+            const completionItem = new this.vscodeModule.CompletionItem(this.globalPrefix + snippetDef.prefix);
+            completionItem.filterText = this.globalPrefix + snippetDef.prefix;
             completionItem.insertText = new this.vscodeModule.SnippetString(snippetDef.body.join('\n'));
             completionItem.documentation = new this.vscodeModule.MarkdownString(snippetDef.description);
+            completionItem.range = range;
 
             result.push(completionItem);
         });

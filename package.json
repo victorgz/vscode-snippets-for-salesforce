@@ -43,6 +43,11 @@
         "configuration": {
             "title": "Snippets for Salesforce Developers",
             "properties": {
+                "snippetsForSalesforceDevs.prefix": {
+                    "type": "string",
+                    "description": "The prefix / shortcut used to trigger the suggestions",
+                    "default": "!! "
+                },
                 "snippetsForSalesforceDevs.authorName": {
                     "type": "string",
                     "description": "The name of the author to sign the comments",

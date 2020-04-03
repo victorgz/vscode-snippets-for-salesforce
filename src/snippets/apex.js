@@ -29,10 +29,10 @@ class ApexSnippetService {
         this.replacementItems = {
             authorName: this.gitConfiguration.name || this.extensionConfiguration.apex.authorname || '${1:Your name}',
             authorEmail: this.gitConfiguration.email || this.extensionConfiguration.apex.authoremail || '${2:email@email.com}',
-            topClassSeparator: this.extensionConfiguration.apex.classSeparatorLength === 'long' ? "/*-----------------------------------------------------------------------------------------------------------//" : "/**",
-            bottomClassSeparator: this.extensionConfiguration.apex.classSeparatorLength === 'long' ? "*-----------------------------------------------------------------------------------------------------------*/" : "*/",
-            topMethodSeparator: this.extensionConfiguration.apex.methodSeparatorLength === 'long' ? "/******************************************************************************************************" : "/**",
-            bottomMethodSeparator: this.extensionConfiguration.apex.methodSeparatorLength === 'long' ? "******************************************************************************************************/" : " */"
+            topClassSeparator: this.extensionConfiguration.apex.lenghtOfClassCommentSeparator === 'long' ? "/*-----------------------------------------------------------------------------------------------------------/" : "/**",
+            bottomClassSeparator: this.extensionConfiguration.apex.lenghtOfClassCommentSeparator === 'long' ? "*-----------------------------------------------------------------------------------------------------------*/" : "*/",
+            topMethodSeparator: this.extensionConfiguration.apex.lenghtOfMethodCommentSeparator === 'long' ? "/******************************************************************************************************" : "/**",
+            bottomMethodSeparator: this.extensionConfiguration.apex.lenghtOfMethodCommentSeparator === 'long' ? "******************************************************************************************************/" : " */"
         }
     }
 
@@ -84,9 +84,9 @@ class ApexSnippetService {
             docClassItemVersion: {
                 "prefix": "apexdoc version for class comment",
                 "scope": "apex",
-                "description": "inserting new @versio here",
+                "description": "Inserting new @version here",
                 "body": [
-                    "* @version\t\t${4:1.0}\t\t$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE\t\t${5:Author}\t\t\t\t\t${6:Changes description}"
+                    "* @version\t\t${4:1.0}\t\t$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE\t\t" + this.getTabSpacing(20, this.replacementItems.authorName) + " \t${6:Changes description}"
                 ]
             }
         };

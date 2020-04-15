@@ -23,46 +23,49 @@ The VSCode extension is available in the [VisualStudio Marketplace](https://mark
 Alternatively, you can download this repository, package the extension and install it locally.
 
 ## How to use
-  
+
 1. Insert your snippets by using the "Insert Snippet" command in VSCode (Ctrl/Cmd + shift + P) or using the snippet shortcuts directly from you workspace! You can find list of all the available shortcuts in the next section.
-![Insert new snippets](./img/howto_insert.gif)
+   ![Insert new snippets](./img/howto_insert.gif)
 
 2. Fill the specific fields with the information that is relevant to your project/method/class... Depending on the snippet, you will see that one or more variables will be highlighted. Just write the value you want, press the Tab key of your keyboard and it will automatically focus into the next one!
-![Navigate in new snippet](./img/howto_navigation.gif)
+   ![Navigate in new snippet](./img/howto_navigation.gif)
 
 ## List of available snippets
+
 ### APEX
+
 Pre-built comments to document your Apex classes and methods.
 
-|Trigger| Description |
-|--|--|
-|`!!apexdoc method`|Add a comment block for your Apex method
-|`!!apexdoc @param for method comment`|Add a new @param line for the previously created comment block of your Apex method
-|`!!apexdoc class`|Add a comment block for your Apex class
-|`!!apexdoc @version for class comment`|Add a new @version line for the previously created comment block of your Apex class
+| Trigger                                | Description                                                                         |
+| -------------------------------------- | ----------------------------------------------------------------------------------- |
+| `!!apexdoc method`                     | Add a comment block for your Apex method                                            |
+| `!!apexdoc @param for method comment`  | Add a new @param line for the previously created comment block of your Apex method  |
+| `!!apexdoc class`                      | Add a comment block for your Apex class                                             |
+| `!!apexdoc @version for class comment` | Add a new @version line for the previously created comment block of your Apex class |
 
 ![apexdoc Snippets](./img/apex_examples.png)
-  
 
 ### AURA
+
 All the available auradoc items that you need to document your Aura Components.
 
-|Trigger | Description |
-|--|--|
-|`!!auradoc: Basic Structure`|Create the basic structure for the auradoc file
-|`!!auradoc: Title`|Insert a title in your auradoc description
-|`!!auradoc: Paragraph`|Insert a paragraph in your auradoc description
-|`!!auradoc: Inline Code`|Insert an inline block of code in your auradoc description
-|`!!auradoc: Link`|Insert a link to a URL in your auradoc description
-|`!!auradoc: Code Block`|Insert a full code of block inside your auradoc description
-|`!!auradoc: Bulleted List`| Insert a bulleted list in your auradoc description
-|`!!auradoc: Numbered List`| Insert a numbered list in your auradoc description
-|`!!auradoc: Table`| Insert a table in your auradoc description
-|`!!auradoc: aura:example`| Create a new example reference in your auradoc
+| Trigger                      | Description                                                 |
+| ---------------------------- | ----------------------------------------------------------- |
+| `!!auradoc: Basic Structure` | Create the basic structure for the auradoc file             |
+| `!!auradoc: Title`           | Insert a title in your auradoc description                  |
+| `!!auradoc: Paragraph`       | Insert a paragraph in your auradoc description              |
+| `!!auradoc: Inline Code`     | Insert an inline block of code in your auradoc description  |
+| `!!auradoc: Link`            | Insert a link to a URL in your auradoc description          |
+| `!!auradoc: Code Block`      | Insert a full code of block inside your auradoc description |
+| `!!auradoc: Bulleted List`   | Insert a bulleted list in your auradoc description          |
+| `!!auradoc: Numbered List`   | Insert a numbered list in your auradoc description          |
+| `!!auradoc: Table`           | Insert a table in your auradoc description                  |
+| `!!auradoc: aura:example`    | Create a new example reference in your auradoc              |
 
 ![auradoc Snippets - Examples](./img/aura_examples.png)
 
 ![auradoc Snippets - Documentation](./img/aura_documentation.png)
 
 ## Contributing
+
 Pull requests are welcome. For major changes, please [open an issue](https://github.com/victorgz/vscode-snippets-for-salesforce/issues) first to discuss what you would like to change.

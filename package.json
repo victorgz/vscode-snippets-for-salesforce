@@ -1,85 +1,93 @@
 {
-    "name": "snippets-for-salesforce-devs",
-    "displayName": "Snippets for Salesforce Developers",
-    "description": "A set of VSCode Snipptes for Salesforce Developers",
-    "publisher": "victorgz",
-    "version": "1.1.0",
-    "license": "SEE LICENSE IN LICENSE",
-    "icon": "img/icon.png",
-    "author": {
-        "name": "victorgz"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/victorgz/vscode-snippets-for-salesforce.git"
-    },
-    "homepage": "https://github.com/victorgz/vscode-snippets-for-salesforce/blob/master/README.md",
-    "engines": {
-        "vscode": "^1.43.0"
-    },
-    "categories": [
-        "Snippets"
+  "name": "snippets-for-salesforce-devs",
+  "displayName": "Snippets for Salesforce Developers",
+  "description": "A set of VSCode Snipptes for Salesforce Developers",
+  "publisher": "victorgz",
+  "version": "1.1.0",
+  "license": "SEE LICENSE IN LICENSE",
+  "icon": "img/icon.png",
+  "author": {
+    "name": "victorgz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/victorgz/vscode-snippets-for-salesforce.git"
+  },
+  "homepage": "https://github.com/victorgz/vscode-snippets-for-salesforce/blob/master/README.md",
+  "engines": {
+    "vscode": "^1.43.0"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "keywords": [
+    "snippets",
+    "salesforce",
+    "aura",
+    "apex",
+    "documentation"
+  ],
+  "contributes": {
+    "snippets": [
+      {
+        "language": "html",
+        "path": "./snippets/aura.json"
+      }
     ],
-    "keywords": [
-        "snippets",
-        "salesforce",
-        "aura",
-        "apex",
-        "documentation"
-    ],
-    "contributes": {
-        "snippets": [
-            {
-                "language": "html",
-                "path": "./snippets/aura.json"
-            }
-        ],
-        "configuration": {
-            "title": "Snippets for Salesforce Developers",
-            "properties": {
-                "prefix": {
-                    "type": "string",
-                    "description": "The shortcut used to trigger the suggestions (e.g. !!, ##, zz, abc...). Please note that some combinations of characteres might not work and that VSCode would have to be reloaded in order to have this setting applied",
-                    "default": "!! "
-                },
-                "apex.lenghtOfClassCommentSeparator": {
-                    "type": "string",
-                    "default": "long",
-                    "enum": ["long", "short"],
-                    "description": "Determines if the comment for a class will have long or short separators at the top and at the bottom"
-                },
-                "apex.lenghtOfMethodCommentSeparator": {
-                    "type": "string",
-                    "default": "long",
-                    "enum": ["long", "short"],
-                    "description": "Determines if the comment for a method will have long or short separators at the top and at the bottom"
-                }
-            }
+    "configuration": {
+      "title": "Snippets for Salesforce Developers",
+      "properties": {
+        "prefix": {
+          "type": "string",
+          "description": "The shortcut used to trigger the suggestions (e.g. !!, ##, zz, abc...). Please note that some combinations of characteres might not work and that VSCode would have to be reloaded in order to have this setting applied",
+          "default": "!! "
+        },
+        "apex.lenghtOfClassCommentSeparator": {
+          "type": "string",
+          "default": "long",
+          "enum": [
+            "long",
+            "short"
+          ],
+          "description": "Determines if the comment for a class will have long or short separators at the top and at the bottom"
+        },
+        "apex.lenghtOfMethodCommentSeparator": {
+          "type": "string",
+          "default": "long",
+          "enum": [
+            "long",
+            "short"
+          ],
+          "description": "Determines if the comment for a method will have long or short separators at the top and at the bottom"
         }
-    },
-    "activationEvents": [
-        "onLanguage:apex",
-        "onLanguage:html"
-
-    ],
-    "main": "./src/extension.js",
-    "scripts": {
-        "lint": "eslint .",
-        "pretest": "npm run lint",
-        "test": "node ./test/runTest.js"
-    },
-    "devDependencies": {
-        "@types/glob": "^7.1.1",
-        "@types/mocha": "^7.0.1",
-        "@types/node": "^12.11.7",
-        "@types/vscode": "^1.43.0",
-        "eslint": "^6.8.0",
-        "glob": "^7.1.6",
-        "mocha": "^7.0.1",
-        "typescript": "^3.7.5",
-        "vscode-test": "^1.3.0"
-    },
-    "dependencies": {
-        "simple-git": "^1.132.0"
+      }
     }
+  },
+  "activationEvents": [
+    "onLanguage:apex",
+    "onLanguage:html"
+  ],
+  "main": "./src/extension.js",
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "node ./test/runTest.js",
+    "prettier": "prettier --write \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
+    "prettier:verify": "prettier --list-different \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\""
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.1",
+    "@types/mocha": "^7.0.1",
+    "@types/node": "^12.12.35",
+    "@types/vscode": "^1.44.0",
+    "eslint": "^6.8.0",
+    "glob": "^7.1.6",
+    "mocha": "^7.0.1",
+    "prettier": "^1.19.1",
+    "typescript": "^3.7.5",
+    "vscode-test": "^1.3.0"
+  },
+  "dependencies": {
+    "simple-git": "^1.132.0"
+  }
 }

@@ -29,10 +29,10 @@ class ApexSnippetService {
         this.replacementItems = {
             authorName: this.gitConfiguration.name || this.extensionConfiguration.apex.authorname || '${21:Your name}',
             authorEmail: this.gitConfiguration.email || this.extensionConfiguration.apex.authoremail || '${22:email@email.com}',
-            topClassSeparator: this.extensionConfiguration.apex.lenghtOfClassCommentSeparator === 'long' ? "/*-----------------------------------------------------------------------------------------------------------/" : "/**",
-            bottomClassSeparator: this.extensionConfiguration.apex.lenghtOfClassCommentSeparator === 'long' ? "*-----------------------------------------------------------------------------------------------------------*/" : "*/",
-            topMethodSeparator: this.extensionConfiguration.apex.lenghtOfMethodCommentSeparator === 'long' ? "/******************************************************************************************************" : "/**",
-            bottomMethodSeparator: this.extensionConfiguration.apex.lenghtOfMethodCommentSeparator === 'long' ? "******************************************************************************************************/" : " */"
+            topClassSeparator: this.extensionConfiguration.apex.lenghtOfClassCommentSeparator === 'long' ? "/*************************************************************************************************************" : "/**",
+            bottomClassSeparator: this.extensionConfiguration.apex.lenghtOfClassCommentSeparator === 'long' ? "**************************************************************************************************************/" : "*/",
+            topMethodSeparator: this.extensionConfiguration.apex.lenghtOfMethodCommentSeparator === 'long' ? "/*********************************************************************************************************" : "/**",
+            bottomMethodSeparator: this.extensionConfiguration.apex.lenghtOfMethodCommentSeparator === 'long' ? "**********************************************************************************************************/" : " */"
         }
     }
 
@@ -42,7 +42,7 @@ class ApexSnippetService {
                 "prefix": "doc @author",
                 "scope": "apex",
                 "body": [
-                    "* @author\t\t\t\t" + this.replacementItems.authorName.trim() + " <" + this.replacementItems.authorEmail.trim() + ">"
+                    "* @author\t\t\t" + this.replacementItems.authorName.trim() + " <" + this.replacementItems.authorEmail.trim() + ">"
                 ]
             },
 
@@ -50,7 +50,7 @@ class ApexSnippetService {
                 "prefix": "doc @description",
                 "scope": "apex",
                 "body": [
-                    "* @description\t\t\t${30:Description of your code}",
+                    "* @description\t\t${30:Description of your code}",
                 ]
             },
 
@@ -58,7 +58,7 @@ class ApexSnippetService {
                 "prefix": "doc @version",
                 "scope": "apex",
                 "body": [
-                    "* @version\t\t${1.0}\t\t$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE\t\t" + this.getTabSpacing(20, this.replacementItems.authorName) + " \t${Changes desription}",
+                    "* @version\t\t${80:1.0}\t\t$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE\t\t" + this.getTabSpacing(20, this.replacementItems.authorName) + " \t${81:Changes desription}",
                 ]
             },
 
@@ -66,7 +66,7 @@ class ApexSnippetService {
                 "prefix": "doc @param",
                 "scope": "apex",
                 "body": [
-                    "* @param\t\t\t\t${40:String} ${41:param} : ${42:Explanation}"
+                    "* @param\t\t\t${40:String} ${41:param} : ${42:Explanation}"
                 ]
             },
 
@@ -74,7 +74,7 @@ class ApexSnippetService {
                 "prefix": "doc @return",
                 "scope": "apex",
                 "body": [
-                    "* @return\t\t\t\t${50:Explanation of the return value}"
+                    "* @return\t\t\t${50:Explanation of the return value}"
                 ]
             },
 
@@ -82,7 +82,7 @@ class ApexSnippetService {
                 "prefix": "doc @exception",
                 "scope": "apex",
                 "body": [
-                    "* @exception\t\t\t${60:ExceptionType} : ${61:Why the exception would be thrown}"
+                    "* @exception\t\t${60:ExceptionType} : ${61:Why the exception would be thrown}"
                 ]
             },
 
@@ -90,15 +90,15 @@ class ApexSnippetService {
                 "prefix": "doc @deprecated",
                 "scope": "apex",
                 "body": [
-                    "* @deprecated\t\t\t${70:Explanation}"
+                    "* @deprecated\t\t${70:Explanation}"
                 ]
             },
 
             docName: {
-                "prefix": "doc @deprecated",
+                "prefix": "doc @name",
                 "scope": "apex",
                 "body": [
-                    "* @name\t\t\t\t${10:The name of your class or method}"
+                    "* @name\t\t\t${10:The name of your class or method}"
                 ]
             },
 
@@ -106,27 +106,7 @@ class ApexSnippetService {
                 "prefix": "doc @date",
                 "scope": "apex",
                 "body": [
-                    "* @date\t\t\t\t$CURRENT_DATE / $CURRENT_MONTH / $CURRENT_YEAR"
-                ]
-            },
-
-            docClassComment: {
-                "prefix": "doc class",
-                "scope": "apex",
-                "body": [
-                    this.replacementItems.topClassSeparator,
-                    "* Class Name\t $TM_FILENAME_BASE",
-                    "* Author\t\t " + this.replacementItems.authorName.trim() + " <" + this.replacementItems.authorEmail.trim() + ">",
-                    "* Date\t\t\t $CURRENT_DATE / $CURRENT_MONTH / $CURRENT_YEAR",
-                    "* Description\t ${3:Description of the class}",
-                    "*",
-                    "* Changes (version)",
-                    "* -----------------------------------------------------------------------------------------------------------",
-                    "* \t\t\t\tNo.\t\tDate\t\t\tAuthor\t\t\t\t\tDescription",
-                    "* \t\t\t\t----\t------------\t--------------------\t---------------------------------------------",
-                    "* @version\t\t${4:1.0}\t\t$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE\t\t" + this.getTabSpacing(20, this.replacementItems.authorName) + " \t${6:Created}",
-                    "* ",
-                    this.replacementItems.bottomClassSeparator
+                    "* @date\t\t\t$CURRENT_DATE / $CURRENT_MONTH / $CURRENT_YEAR"
                 ]
             }
         };
@@ -142,11 +122,29 @@ class ApexSnippetService {
                 " " + this.formattedSnippets.docDescription.body,
                 " " + this.formattedSnippets.docParam.body,
                 " " + this.formattedSnippets.docReturn.body,
-                " " + this.formattedSnippets.docException.body,
-                " " + this.formattedSnippets.docDeprecated.body,
                 this.replacementItems.bottomMethodSeparator
             ]
         };
+
+        this.formattedSnippets.docClassComment = {
+            "prefix": "doc class",
+            "scope": "apex",
+            "body": [
+                this.replacementItems.topClassSeparator,
+                " " + this.formattedSnippets.docName.body,
+                " " + this.formattedSnippets.docAuthor.body,
+                " " + this.formattedSnippets.docDate.body,
+                " " + this.formattedSnippets.docDescription.body,
+                " *",
+                " * Changes (version)",
+                " * -----------------------------------------------------------------------------------------------------------",
+                " * \t\t\t\tNo.\t\tDate\t\t\tAuthor\t\t\t\t\tDescription",
+                " * \t\t\t\t----\t------------\t--------------------\t----------------------------------------------",
+                " " + this.formattedSnippets.docVersion.body,
+                " *",
+                this.replacementItems.bottomClassSeparator
+            ]
+        }
     }
 
     getCompletionItems(range) {

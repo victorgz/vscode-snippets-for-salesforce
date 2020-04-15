@@ -19,7 +19,7 @@ class ApexSnippetService {
         }
     }
 
-    initialize(){
+    initialize() {
         this.globalPrefix = this.extensionConfiguration.prefix || '!! ';
         this.createReplacementItems();
         this.buildFormattedSnippets();
@@ -163,18 +163,18 @@ class ApexSnippetService {
         return result;
     }
 
-    getGlobalPrefix(){
+    getGlobalPrefix() {
         return this.globalPrefix;
     }
 
-    getTabSpacing(totalSpace, text){
-        if(text.lenght >= totalSpace){
+    getTabSpacing(totalSpace, text) {
+        if (text.lenght >= totalSpace) {
             return text.substring(0, totalSpace);
         }
 
         const numberOfTabs = (totalSpace - text.length) / 4;
         let tabString = '';
-        for(let i = 0; i < Math.ceil(numberOfTabs); i++){
+        for (let i = 0; i < Math.ceil(numberOfTabs); i++) {
             tabString += '\t';
         }
         return text.trim() + tabString;

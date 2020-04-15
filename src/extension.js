@@ -7,6 +7,7 @@ const vscode = require('vscode');
 // your extension is activated the very first time the command is executed
 
 const ApexSnippetService = require('./snippets/apex');
+const AuradocSnippetService = require('./snippets/auradoc');
 const git = require('simple-git')
 
 /**
@@ -16,10 +17,13 @@ function activate(context) {
 	const projectPath = vscode.workspace.rootPath || '/Users/victor.garciazarco/DevWorkspace/vscode-snippets-for-salesforce';
 	const extensionConfiguration = getExtensionConfiguration();
 	const apexSnippetService = new ApexSnippetService(vscode, extensionConfiguration);
-	
+	const auradocSnippetService = new AuradocSnippetService(vscode, extensionConfiguration);
+
 	Promise.all([getGitUserName(projectPath), getGitUserEmail(projectPath)]).then(function (values) {
 		apexSnippetService.addGitConfiguration(values[0], values[1]);
+		auradocSnippetService.addGitConfiguration(values[0], values[1]);
 		apexSnippetService.initialize();
+		auradocSnippetService.initialize();
 	});
 
 	// Create replacement REGEX - To be moved into the Common configuration class
@@ -27,7 +31,7 @@ function activate(context) {
 	const regexString = prefix[0] + '\\s*[\\w\\s]*';
 	const regex = new RegExp(regexString);
 
-	const completionItemProvider = vscode.languages.registerCompletionItemProvider('apex', {
+	const apexCompletionItemProvider = vscode.languages.registerCompletionItemProvider('apex', {
 		provideCompletionItems(document, position) {
 			if (!document.lineAt(position.line).text.match(regex)) {
 				return;
@@ -40,7 +44,21 @@ function activate(context) {
 	}, prefix[0]
 	);
 
-	context.subscriptions.push(completionItemProvider);
+	const auradocCompletionItemProvider = vscode.languages.registerCompletionItemProvider('html', {
+		provideCompletionItems(document, position) {
+			if (!document.lineAt(position.line).text.match(regex)) {
+				return;
+			}
+
+			const range = new vscode.Range(position.line, document.lineAt(position.line).text.match(regex).index, position.line, position.character)
+
+			return auradocSnippetService.getCompletionItems(range);
+		}
+	}, prefix[0]
+	);
+
+	context.subscriptions.push(apexCompletionItemProvider);
+	context.subscriptions.push(auradocCompletionItemProvider);
 }
 exports.activate = activate;
 

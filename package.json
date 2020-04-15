@@ -34,12 +34,6 @@
                 "path": "./snippets/aura.json"
             }
         ],
-        "commands": [
-            {
-                "command": "extension.helloWorld",
-                "title": "Hello World"
-            }
-        ],
         "configuration": {
             "title": "Snippets for Salesforce Developers",
             "properties": {
@@ -64,7 +58,9 @@
         }
     },
     "activationEvents": [
-        "onLanguage:apex"
+        "onLanguage:apex",
+        "onLanguage:html"
+
     ],
     "main": "./src/extension.js",
     "scripts": {

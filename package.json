@@ -43,28 +43,18 @@
         "configuration": {
             "title": "Snippets for Salesforce Developers",
             "properties": {
-                "snippetsForSalesforceDevs.prefix": {
+                "prefix": {
                     "type": "string",
-                    "description": "The prefix / shortcut used to trigger the suggestions",
+                    "description": "The shortcut used to trigger the suggestions (e.g. !!, ##, zz, abc...). Please note that some combinations of characteres might not work and that VSCode would have to be reloaded in order to have this setting applied",
                     "default": "!! "
                 },
-                "snippetsForSalesforceDevs.authorName": {
-                    "type": "string",
-                    "description": "The name of the author to sign the comments",
-                    "default": "John Snippet"
-                },
-                "snippetsForSalesforceDevs.authorEmail": {
-                    "type": "string",
-                    "description": "The email of the author to sign the comments",
-                    "default": "john@snippet.demo"
-                },
-                "snippetsForSalesforceDevs.apex.lenghtOfClassCommentSeparator": {
+                "apex.lenghtOfClassCommentSeparator": {
                     "type": "string",
                     "default": "long",
                     "enum": ["long", "short"],
                     "description": "Determines if the comment for a class will have long or short separators at the top and at the bottom"
                 },
-                "snippetsForSalesforceDevs.apex.lenghtOfMethodCommentSeparator": {
+                "apex.lenghtOfMethodCommentSeparator": {
                     "type": "string",
                     "default": "long",
                     "enum": ["long", "short"],

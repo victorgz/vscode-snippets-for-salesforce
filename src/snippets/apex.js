@@ -27,8 +27,8 @@ class ApexSnippetService {
 
     createReplacementItems() {
         this.replacementItems = {
-            authorName: this.gitConfiguration.name || this.extensionConfiguration.apex.authorname || '${21:Your name}',
-            authorEmail: this.gitConfiguration.email || this.extensionConfiguration.apex.authoremail || '${22:email@email.com}',
+            authorName: this.gitConfiguration.name || '${21:Your name}',
+            authorEmail: this.gitConfiguration.email || '${22:email@email.com}',
             topClassSeparator: this.extensionConfiguration.apex.lenghtOfClassCommentSeparator === 'long' ? "/*************************************************************************************************************" : "/**",
             bottomClassSeparator: this.extensionConfiguration.apex.lenghtOfClassCommentSeparator === 'long' ? "**************************************************************************************************************/" : "*/",
             topMethodSeparator: this.extensionConfiguration.apex.lenghtOfMethodCommentSeparator === 'long' ? "/*********************************************************************************************************" : "/**",

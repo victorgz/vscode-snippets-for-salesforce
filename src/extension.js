@@ -67,7 +67,7 @@ function getGitUserEmail(projectPath) {
 }
 
 function getExtensionConfiguration() {
-	return vscode.workspace.getConfiguration('snippetsForSalesforceDevs');
+	return vscode.workspace.getConfiguration();
 }
 
 /*********** */

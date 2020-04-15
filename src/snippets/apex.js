@@ -27,8 +27,8 @@ class ApexSnippetService {
 
     createReplacementItems() {
         this.replacementItems = {
-            authorName: this.gitConfiguration.name || this.extensionConfiguration.apex.authorname || '${1:Your name}',
-            authorEmail: this.gitConfiguration.email || this.extensionConfiguration.apex.authoremail || '${2:email@email.com}',
+            authorName: this.gitConfiguration.name || this.extensionConfiguration.apex.authorname || '${21:Your name}',
+            authorEmail: this.gitConfiguration.email || this.extensionConfiguration.apex.authoremail || '${22:email@email.com}',
             topClassSeparator: this.extensionConfiguration.apex.lenghtOfClassCommentSeparator === 'long' ? "/*-----------------------------------------------------------------------------------------------------------/" : "/**",
             bottomClassSeparator: this.extensionConfiguration.apex.lenghtOfClassCommentSeparator === 'long' ? "*-----------------------------------------------------------------------------------------------------------*/" : "*/",
             topMethodSeparator: this.extensionConfiguration.apex.lenghtOfMethodCommentSeparator === 'long' ? "/******************************************************************************************************" : "/**",
@@ -38,38 +38,87 @@ class ApexSnippetService {
 
     buildFormattedSnippets() {
         this.formattedSnippets = {
-            docMethodComment: {
-                "prefix": "apexdoc method",
+            docAuthor: {
+                "prefix": "doc @author",
                 "scope": "apex",
                 "body": [
-                    this.replacementItems.topMethodSeparator,
-                    " * @Method\t\t\t:\t${1:nameOfYourMethod}",
-                    " * @Author\t\t\t:\t" + this.replacementItems.authorName.trim() + " <" + this.replacementItems.authorEmail.trim() + ">",
-                    " * @Created\t\t\t:\t$CURRENT_DATE / $CURRENT_MONTH / $CURRENT_YEAR",
-                    " * @Description\t\t:\t${4:Description of your method}",
-                    " * @Param\t\t\t:\t${5:String} ${6:param1} : ${7:Explanation of param1}",
-                    " * @Returns\t\t\t:\t${8:Explanation of the return value}",
-                    this.replacementItems.bottomMethodSeparator
+                    "* @author\t\t\t\t" + this.replacementItems.authorName.trim() + " <" + this.replacementItems.authorEmail.trim() + ">"
                 ]
             },
 
-            docMethodItemParam: {
-                "prefix": "apexdoc @param for method comment",
+            docDescription: {
+                "prefix": "doc @description",
                 "scope": "apex",
                 "body": [
-                    "* @Param\t\t\t:\t${1:String} ${2:param} : ${3:Explanation}"
+                    "* @description\t\t\t${30:Description of your code}",
+                ]
+            },
+
+            docVersion: {
+                "prefix": "doc @version",
+                "scope": "apex",
+                "body": [
+                    "* @version\t\t${1.0}\t\t$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE\t\t" + this.getTabSpacing(20, this.replacementItems.authorName) + " \t${Changes desription}",
+                ]
+            },
+
+            docParam: {
+                "prefix": "doc @param",
+                "scope": "apex",
+                "body": [
+                    "* @param\t\t\t\t${40:String} ${41:param} : ${42:Explanation}"
+                ]
+            },
+
+            docReturn: {
+                "prefix": "doc @return",
+                "scope": "apex",
+                "body": [
+                    "* @return\t\t\t\t${50:Explanation of the return value}"
+                ]
+            },
+
+            docException: {
+                "prefix": "doc @exception",
+                "scope": "apex",
+                "body": [
+                    "* @exception\t\t\t${60:ExceptionType} : ${61:Why the exception would be thrown}"
+                ]
+            },
+
+            docDeprecated: {
+                "prefix": "doc @deprecated",
+                "scope": "apex",
+                "body": [
+                    "* @deprecated\t\t\t${70:Explanation}"
+                ]
+            },
+
+            docName: {
+                "prefix": "doc @deprecated",
+                "scope": "apex",
+                "body": [
+                    "* @name\t\t\t\t${10:The name of your class or method}"
+                ]
+            },
+
+            docDate: {
+                "prefix": "doc @date",
+                "scope": "apex",
+                "body": [
+                    "* @date\t\t\t\t$CURRENT_DATE / $CURRENT_MONTH / $CURRENT_YEAR"
                 ]
             },
 
             docClassComment: {
-                "prefix": "apexdoc class",
+                "prefix": "doc class",
                 "scope": "apex",
                 "body": [
                     this.replacementItems.topClassSeparator,
-                    "* Class Name\t: $TM_FILENAME_BASE",
-                    "* Author\t\t: " + this.replacementItems.authorName.trim() + " <" + this.replacementItems.authorEmail.trim() + ">",
-                    "* Date\t\t\t: $CURRENT_DATE / $CURRENT_MONTH / $CURRENT_YEAR",
-                    "* Description\t: ${3:Description of the class}",
+                    "* Class Name\t $TM_FILENAME_BASE",
+                    "* Author\t\t " + this.replacementItems.authorName.trim() + " <" + this.replacementItems.authorEmail.trim() + ">",
+                    "* Date\t\t\t $CURRENT_DATE / $CURRENT_MONTH / $CURRENT_YEAR",
+                    "* Description\t ${3:Description of the class}",
                     "*",
                     "* Changes (version)",
                     "* -----------------------------------------------------------------------------------------------------------",
@@ -79,16 +128,24 @@ class ApexSnippetService {
                     "* ",
                     this.replacementItems.bottomClassSeparator
                 ]
-            },
-
-            docClassItemVersion: {
-                "prefix": "apexdoc version for class comment",
-                "scope": "apex",
-                "description": "Inserting new @version here",
-                "body": [
-                    "* @version\t\t${4:1.0}\t\t$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE\t\t" + this.getTabSpacing(20, this.replacementItems.authorName) + " \t${6:Changes description}"
-                ]
             }
+        };
+
+        this.formattedSnippets.docMethodComment = {
+            "prefix": "doc method",
+            "scope": "apex",
+            "body": [
+                this.replacementItems.topMethodSeparator,
+                " " + this.formattedSnippets.docName.body,
+                " " + this.formattedSnippets.docAuthor.body,
+                " " + this.formattedSnippets.docDate.body,
+                " " + this.formattedSnippets.docDescription.body,
+                " " + this.formattedSnippets.docParam.body,
+                " " + this.formattedSnippets.docReturn.body,
+                " " + this.formattedSnippets.docException.body,
+                " " + this.formattedSnippets.docDeprecated.body,
+                this.replacementItems.bottomMethodSeparator
+            ]
         };
     }
 

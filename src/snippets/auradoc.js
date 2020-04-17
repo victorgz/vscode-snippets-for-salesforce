@@ -216,7 +216,7 @@ class AuradocSnippetService {
   }
 
   getTabSpacing(totalSpace, text) {
-    if (text.lenght >= totalSpace) {
+    if (text.length >= totalSpace) {
       return text.substring(0, totalSpace);
     }
 

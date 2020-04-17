@@ -239,7 +239,7 @@ class ApexSnippetService {
       );
       completionItem.filterText = this.globalPrefix + snippetDef.prefix;
       completionItem.label = this.globalPrefix + snippetDef.prefix;
-      completionItem.detail = `${snippetDef.prefix} - ${snippetDef.scope}`;         
+      completionItem.detail = `${snippetDef.prefix} - ${snippetDef.scope}`;
       completionItem.insertText = new this.vscodeModule.SnippetString(
         snippetDef.body.join('\n')
       );
@@ -266,7 +266,7 @@ class ApexSnippetService {
   }
 
   getTabSpacing(totalSpace, text) {
-    if (text.lenght >= totalSpace) {
+    if (text.length >= totalSpace) {
       return text.substring(0, totalSpace);
     }
 

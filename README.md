@@ -99,3 +99,7 @@ The extension includes some settings so you can adapt it to better fit your need
 ## Contributing
 
 Pull requests are welcome. For major changes, please [open an issue](https://github.com/victorgz/vscode-snippets-for-salesforce/issues) first to discuss what you would like to change.
+
+## Dependencies
+
+- [simple-git 1.132.0](https://github.com/steveukx/git-js)

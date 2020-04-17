@@ -1,11 +1,4 @@
-// The module 'vscode' contains the VS Code extensibility API
-
-// Import the module and reference it with the alias vscode in your code below
 const vscode = require('vscode');
-
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
-
 const ApexSnippetService = require('./snippets/apex');
 const AuradocSnippetService = require('./snippets/auradoc');
 const git = require('simple-git');
@@ -14,9 +7,7 @@ const git = require('simple-git');
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-  const projectPath =
-    vscode.workspace.rootPath ||
-    '/Users/victor.garciazarco/DevWorkspace/vscode-snippets-for-salesforce';
+  const projectPath = vscode.workspace.rootPath;
   const extensionConfiguration = getExtensionConfiguration();
   const apexSnippetService = new ApexSnippetService(
     vscode,
@@ -36,7 +27,6 @@ function activate(context) {
     }
   );
 
-  // Create replacement REGEX - To be moved into the Common configuration class
   const prefix = apexSnippetService.getGlobalPrefix();
   const regexString = prefix[0] + '\\s*[\\w\\s]*';
   const regex = new RegExp(regexString);
@@ -86,12 +76,9 @@ function activate(context) {
   context.subscriptions.push(apexCompletionItemProvider);
   context.subscriptions.push(auradocCompletionItemProvider);
 }
-exports.activate = activate;
 
-// this method is called when your extension is deactivated
 function deactivate() {}
 
-/*********** */
 function getGitUserName(projectPath) {
   return new Promise((resolve, reject) => {
     git(projectPath).raw(['config', 'user.name'], (err, result) => {
@@ -113,8 +100,6 @@ function getGitUserEmail(projectPath) {
 function getExtensionConfiguration() {
   return vscode.workspace.getConfiguration();
 }
-
-/*********** */
 
 module.exports = {
   activate,

@@ -116,8 +116,7 @@ class ApexSnippetService {
           'Add a new @version tag for your class comments. This refers is used to generate a change log, in which every contribution specifies the version, the date, the author and a description of the changes done',
         body: [
           '* @version\t\t${80:1.0}\t\t$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE\t\t' +
-            this.getTabSpacing(20, this.replacementItems.authorName) +
-            ' \t${81:Changes desription}'
+            this.getTabSpacing(20, this.replacementItems.authorName) + '\t${81:Changes desription}'
         ],
         example: [
           '* @version\t1.0\t2020-02-01\t' + 'John Snippet' + ' \tFix bugs'
@@ -266,6 +265,7 @@ class ApexSnippetService {
   }
 
   getTabSpacing(totalSpace, text) {
+    text = text.trim()
     if (text.length >= totalSpace) {
       return text.substring(0, totalSpace);
     }
@@ -275,7 +275,7 @@ class ApexSnippetService {
     for (let i = 0; i < Math.ceil(numberOfTabs); i++) {
       tabString += '\t';
     }
-    return text.trim() + tabString;
+    return text + tabString;
   }
 }
 

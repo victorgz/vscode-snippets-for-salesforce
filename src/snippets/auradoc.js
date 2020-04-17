@@ -6,7 +6,11 @@ class AuradocSnippetService {
       email: undefined
     };
     this.extensionConfiguration = extensionConfiguration || {};
-    this.globalPrefix = extensionConfiguration.prefix || '!!';
+    this.globalPrefix =
+      extensionConfiguration.prefix != undefined &&
+      extensionConfiguration.prefix != ''
+        ? extensionConfiguration.prefix
+        : '!!';
     this.replacementItems = {};
     this.formattedSnippets = {};
   }
@@ -19,15 +23,19 @@ class AuradocSnippetService {
   }
 
   initialize() {
-    this.globalPrefix = this.extensionConfiguration.prefix || '!! ';
+    this.globalPrefix = this.globalPrefix =
+      this.extensionConfiguration.prefix != undefined &&
+      this.extensionConfiguration.prefix != ''
+        ? this.extensionConfiguration.prefix
+        : '!!';
     this.buildFormattedSnippets();
   }
 
   buildFormattedSnippets() {
     this.formattedSnippets = {
       docBasicStructure: {
-        prefix: 'doc auradoc basic structure',
-        scope: 'html',
+        prefix: 'doc auradoc structure',
+        description: 'Add a the basic structure for the auradoc file',
         body: [
           '<aura:documentation>',
           '\n\t<aura:description>',
@@ -39,62 +47,87 @@ class AuradocSnippetService {
           '\t\t$BLOCK_COMMENT_START Explanation of your example $BLOCK_COMMENT_END',
           '\t</aura:example>',
           '\n</aura:documentation>'
+        ],
+        example: [
+          '<aura:documentation>',
+          '\t<aura:description>',
+          '\t\tDisplay a list of users',
+          '\t</aura:description>',
+          '\n',
+          '\t<aura:example name="basicExample" ref="c:cmpExample" label="Basic Example">',
+          '\tList of users with picture',
+          '\t</aura:example>',
+          '</aura:documentation>'
         ]
       },
 
       docTitle: {
         prefix: 'doc title',
-        scope: 'html',
-        body: ['<h4>${1:Title}</h4>']
+        description: 'Insert a title in your auradoc description',
+        body: ['<h4>${1:Title}</h4>'],
+        example: ['<h4>Title</h4>']
       },
       docParagraph: {
         prefix: 'doc paragraph',
-        scope: 'html',
-        body: ['<p>${1:Paragraph}</p>']
+        description: 'Insert a paragraph in your auradoc description',
+        body: ['<p>${1:Paragraph}</p>'],
+        example: ['<p>Paragraph</p>']
       },
       docInlineCode: {
         prefix: 'doc inline code',
-        scope: 'html',
-        body: ['<code>${1:code}</code>']
+        description:
+          'Insert an inline block of code in your auradoc description',
+        body: ['<code>${1:code}</code>'],
+        example: ['some <code>code</code> here']
       },
       docLink: {
         prefix: 'doc link',
-        scope: 'html',
-        body: ['<a href="${2:#}" target="_blank">${1:text}</a>']
+        description: 'Insert a link to a URL in your auradoc description',
+        body: ['<a href="${2:#}" target="_blank">${1:text}</a>'],
+        example: ['<a href="#" target="_blank">link</a>']
       },
       docCodeBlock: {
         prefix: 'doc code block',
-        scope: 'html',
+        description:
+          'Insert a full code of block inside your auradoc description',
         body: [
           '$BLOCK_COMMENT_START Code markup must be escaped. For example, replace < characters with &lt; $BLOCK_COMMENT_END',
           '<pre><code class="language-markup">',
           '$0',
           '</code></pre>'
+        ],
+        example: [
+          '<pre><code class="language-markup">',
+          '\t<h1>Code</h1>',
+          '\t<p>This is a code block</p>',
+          '</code></pre>'
         ]
       },
       docBulletedList: {
         prefix: 'doc bulleted list',
-        scope: 'html',
+        description: 'Insert a bulleted list in your auradoc description',
         body: [
           '<ul>',
           '\t<li>${1:Item1}</li>',
           '\t<li>${2:Item2}</li>',
           '</ul>'
-        ]
+        ],
+        example: ['<ul>', '\t<li>Item1</li>', '\t<li>Item2</li>', '</ul>']
       },
       docNumberedList: {
         prefix: 'doc numbered list',
-        scope: 'html',
+        description: 'Insert a numbered list in your auradoc description',
         body: [
           '<ol>',
           '\t<li>${1:Item1}</li>',
           '\t<li>${2:Item2}</li>',
           '</ol>'
-        ]
+        ],
+        example: ['<ol>', '\t<li>Item1</li>', '\t<li>Item2</li>', '</ol>']
       },
       docTable: {
         prefix: 'doc table',
-        scope: 'html',
+        description: 'Insert a table in your auradoc description',
         body: [
           '<table>',
           '\t<tr>',
@@ -110,15 +143,36 @@ class AuradocSnippetService {
           '\t\t<td>${6:row2column2}</td>',
           '\t</tr>',
           '</table>'
+        ],
+        example: [
+          '<table>',
+          '\t<tr>',
+          '\t\t<th>Column1</th>',
+          '\t\t<th>Column2</th>',
+          '\t</tr>',
+          '\t<tr>',
+          '\t\t<td>row1column1</td>',
+          '\t\t<td>row1column2</td>',
+          '\t</tr>',
+          '\t<tr>',
+          '\t\t<td>row2column1</td>',
+          '\t\t<td>row2column2</td>',
+          '\t</tr>',
+          '</table>'
         ]
       },
       docAuraExample: {
         prefix: 'doc aura:example',
-        scope: 'html',
+        description: 'Create a new example reference in your auradoc',
         body: [
           '<aura:example name="${1:basicExample}" ref="${2:c:basicExample}" label="${3:Basic Example}">',
           '\t$BLOCK_COMMENT_START Explanation of your example $BLOCK_COMMENT_END',
           '\t$0',
+          '</aura:example>'
+        ],
+        example: [
+          '<aura:example name="basicExample" ref="c:cmpExample" label="Basic Example">',
+          '\tList of users with picture\n',
           '</aura:example>'
         ]
       }
@@ -132,13 +186,23 @@ class AuradocSnippetService {
       const completionItem = new this.vscodeModule.CompletionItem(
         this.globalPrefix + snippetDef.prefix
       );
+
       completionItem.filterText = this.globalPrefix + snippetDef.prefix;
+      completionItem.label = this.globalPrefix + snippetDef.prefix;
+      completionItem.detail = `${snippetDef.prefix} - ${snippetDef.scope}`;
       completionItem.insertText = new this.vscodeModule.SnippetString(
         snippetDef.body.join('\n')
       );
       completionItem.documentation = new this.vscodeModule.MarkdownString(
-        snippetDef.description
+        snippetDef.description +
+          '\n' +
+          '\n$(file-code) Example\n' +
+          '\n```\n' +
+          snippetDef.example.join('\n') +
+          '\n```',
+        true
       );
+      completionItem.kind = this.vscodeModule.CompletionItemKind.Snippet;
       completionItem.range = range;
 
       result.push(completionItem);
